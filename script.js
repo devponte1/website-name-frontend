@@ -3,38 +3,31 @@ const API_URL = 'http://localhost:3000';
 // Register user
 function register() {
     const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    fetch(`${API_URL}/register`, {
+    fetch('http://localhost:3000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
     .then(data => alert(data.message))
     .catch(error => console.error('Error:', error));
 }
 
+
 // Login user
 function login() {
-    const email = document.getElementById('loginEmail').value;
+    const username = document.getElementById('username').value;
     const password = document.getElementById('loginPassword').value;
 
-    fetch(`${API_URL}/login`, {
+    fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            localStorage.setItem('token', data.token);
-            alert('Login successful!');
-            window.location.href = 'profile.html';
-        } else {
-            alert('Login failed: ' + data.message);
-        }
-    })
+    .then(data => alert(data.message))
     .catch(error => console.error('Error:', error));
 }
+
